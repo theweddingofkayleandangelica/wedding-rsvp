@@ -131,7 +131,7 @@
 
           <div id="step2" style="display:none">
             <div id="guestList"></div>
-            <small>Enter full names</small>
+            <!-- <small>Enter full name/s</small> -->
 
             <div class="w3-row w3-margin-top">
               <div class="w3-half">
@@ -163,7 +163,9 @@
         for (let i = 1; i <= count; i++) {
           const input = document.createElement("input");
           input.className = "w3-input w3-border w3-margin-bottom guest-name";
-          input.placeholder = i === 1 ? "Your name" : `Guest ${i} name`;
+          input.placeholder = i === 1 ? "Please input your full name" : `Enter your companion’s full name`;
+          // input.placeholder = i === 1 ? "Please input your full name" : `Guest ${i} name`;
+
           container.appendChild(input);
         }
 
