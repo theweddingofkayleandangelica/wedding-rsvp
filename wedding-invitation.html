@@ -5,6 +5,7 @@
     <title>Wedding RSVP</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 
@@ -17,58 +18,64 @@
 
       html,
       body {
-        height: 100%;
         margin: 0;
         padding: 0;
+
+      }
+
+      body {
+        background: #fdeeee;
       }
 
       p {
         line-height: 2;
       }
 
-      img {
-        display: block;
-        max-width: 100%;
+      /* =========================
+       IMAGE NORMALIZATION
+    ========================= */
+      .image-section {
+        max-width: 1100px;
         margin: 0 auto;
+        /* padding: 20px 16px; */
+        padding: 0px;
       }
 
-      .bgimg {
-        min-height: 100%;
-        background-image: url("wedding_couple.jpg");
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        animation: bgZoom 8s ease forwards;
-      }
-
-      @keyframes bgZoom {
-        0% {
-          transform: scale(1);
-        }
-
-        50% {
-          transform: scale(1.02);
-        }
-
-        100% {
-          transform: scale(1);
-        }
-      }
-
-      .animated-img {
+      .image-section img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 14px;
         opacity: 0;
-        transform: scale(0.95);
+        transform: scale(0.97);
         transition: opacity 1s ease, transform 1s ease;
       }
 
-      .animated-img.animate {
+      .image-section img.animate {
         opacity: 1;
         transform: scale(1);
       }
 
-      @media screen and (max-width: 600px) {
+      /* =========================
+       MOBILE TWEAKS
+    ========================= */
+      @media (max-width: 600px) {
         h1 {
           font-size: 2rem;
+        }
+      }
+
+      /* FULL WIDTH ON MOBILE ONLY */
+      @media (max-width: 600px) {
+        .image-section {
+          padding-left: 0;
+          padding-right: 0;
+          padding-top: 0;
+          margin-top: 0;
+        }
+
+        .image-section img {
+          border-radius: 0;
         }
       }
 
@@ -77,83 +84,60 @@
 
   <body>
 
-    <!-- Header -->
-    <header class="w3-display-container w3-wide bgimg" id="home"></header>
+    <!-- HERO IMAGE -->
+    <section class="image-section" id="home">
+      <img src="wedding_couple.jpg" class="animated-img">
+    </section>
 
-    <!-- About -->
-    <div class="w3-container w3-pale-red" id="us" style="padding-top:20px;">
-      <div class="w3-content">
-        <img class="w3-round animated-img" src="together.jpg">
-      </div>
+    <!-- ABOUT -->
+    <section class="image-section" id="us">
+      <img src="together.jpg" class="animated-img">
+    </section>
+
+    <!-- DETAILS -->
+    <section class="image-section" id="details">
+      <img src="details.jpg" class="animated-img">
+    </section>
+
+    <!-- RSVP -->
+    <div class="w3-container w3-padding-64 w3-center w3-wide">
+      <h1>It would truly mean the world to us to celebrate with you!</h1>
+      <p class="w3-large">Kindly let us know if you can join us on or before February 28.</p>
+      <button onclick="document.getElementById('id01').style.display='block'"
+              class="w3-button w3-round w3-red w3-padding-large">
+        RSVP
+      </button>
     </div>
 
-    <!-- Sponsors -->
-    <!-- <div class="w3-container w3-pale-red w3-center" id="sponsors">
-      <div class="w3-content">
-        <img class="w3-round-large animated-img" src="sponsors.jpg">
-      </div>
-    </div> -->
-
-    <!-- Wedding Details -->
-    <div class="w3-container w3-pale-red w3-center" id="wedding">
-      <div class="w3-content">
-        <img class="w3-round-large animated-img" src="details.jpg">
-      </div>
-    </div>
-
-    <!-- RSVP Section -->
-    <div class="w3-container w3-padding-64 w3-pale-red w3-center w3-wide" id="rsvp">
-      <h1>It would mean the world to have you there.</h1>
-      <p class="w3-large">Kindly Respond By February 28</p>
-      <p class="w3-xlarge">
-        <button onclick="document.getElementById('id01').style.display='block'"
-                class="w3-button w3-round w3-red w3-opacity w3-hover-opacity-off" style="padding:8px 60px">
-          RSVP
-        </button>
-      </p>
-    </div>
-
-    <!-- RSVP Modal -->
+    <!-- RSVP MODAL -->
     <div id="id01" class="w3-modal" onclick="if(event.target === this) closeRSVP()">
+      <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px;padding:32px">
+        <div class="w3-center">
 
-      <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="padding:32px;max-width:600px">
+          <span onclick="closeRSVP()" class="w3-button w3-display-topright">&times;</span>
 
-        <div class="w3-container w3-white w3-center">
+          <h1>CAN YOU COME?</h1>
 
-          <!-- Close Button -->
-          <span onclick="closeRSVP()" class="w3-button w3-display-topright w3-large">&times;</span>
-
-          <h1 class="w3-wide">CAN YOU COME?</h1>
-          <p>We really hope you can make it.</p>
-
-          <!-- Step 1 -->
           <div id="step1">
-            <p style="margin-top:15px;font-weight:bold">
-              How many people will attend? (Including yourself)
-            </p>
+            <p><strong>How many people will attend?</strong></p>
+            <label><input type="radio" name="guestNumber" value="1"> 1</label>
+            <label><input type="radio" name="guestNumber" value="2"> 2</label>
 
-            <div>
-              <label><input type="radio" name="guestNumber" value="1"> 1</label>
-              <label><input type="radio" name="guestNumber" value="2"> 2</label>
-              <label><input type="radio" name="guestNumber" value="3"> 3</label>
-            </div>
-
-            <p style="margin-top:15px">
+            <p>
               <button class="w3-button w3-green w3-round" onclick="chooseGuestNumber()">Next</button>
             </p>
           </div>
 
-          <!-- Step 2 -->
           <div id="step2" style="display:none">
             <div id="guestList"></div>
-            <small>Enter full names for each guest (max 3)</small>
+            <small>Enter full names</small>
 
-            <div class="w3-row" style="margin-top:15px">
+            <div class="w3-row w3-margin-top">
               <div class="w3-half">
-                <button class="w3-button w3-block w3-green" onclick="sendRSVP('Going')">Going</button>
+                <button class="w3-button w3-green w3-block" onclick="sendRSVP('Going')">Going</button>
               </div>
               <div class="w3-half">
-                <button class="w3-button w3-block w3-red" onclick="sendRSVP('Not Going')">Can't come</button>
+                <button class="w3-button w3-red w3-block" onclick="sendRSVP('Not Going')">Can't come</button>
               </div>
             </div>
           </div>
@@ -162,68 +146,41 @@
       </div>
     </div>
 
-    <!-- Footer -->
     <footer class="w3-center w3-black w3-padding-16"></footer>
 
     <script>
       const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_g5AnwRj_V3DqAta3CNfaRs2GrD_0Km9h9QHTB9_lc4iTObJG8UPvPUFi5PPiwSb0MA/exec";
-      let guestCount = 1;
 
       function chooseGuestNumber() {
-        const radios = document.getElementsByName("guestNumber");
-        let selected = 0;
+        const selected = document.querySelector('input[name="guestNumber"]:checked');
+        if (!selected) return alert("Please select number of guests.");
 
-        for (let r of radios) {
-          if (r.checked) selected = parseInt(r.value);
-        }
-
-        if (!selected) {
-          alert("Please select number of guests.");
-          return;
-        }
-
-        guestCount = selected;
-        generateGuestFields(selected);
-
-        document.getElementById("step1").style.display = "none";
-        document.getElementById("step2").style.display = "block";
-      }
-
-      function generateGuestFields(count) {
+        const count = parseInt(selected.value);
         const container = document.getElementById("guestList");
         container.innerHTML = "";
 
         for (let i = 1; i <= count; i++) {
           const input = document.createElement("input");
-          input.type = "text";
           input.className = "w3-input w3-border w3-margin-bottom guest-name";
           input.placeholder = i === 1 ? "Your name" : `Guest ${i} name`;
           container.appendChild(input);
         }
+
+        step1.style.display = "none";
+        step2.style.display = "block";
       }
 
       function sendRSVP(status) {
-        const inputs = document.querySelectorAll(".guest-name");
-        const names = [];
+        const names = [...document.querySelectorAll(".guest-name")]
+          .map(i => i.value.trim())
+          .filter(Boolean);
 
-        inputs.forEach(i => {
-          if (i.value.trim()) names.push(i.value.trim());
-        });
-
-        if (names.length === 0) {
-          alert("Please enter at least one name.");
-          return;
-        }
+        if (!names.length) return alert("Please enter at least one name.");
 
         fetch(SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: names.join(", "),
-            status: status,
-            guests: names.length
-          })
+          body: JSON.stringify({ name: names.join(", "), status, guests: names.length })
         });
 
         alert("Thank you! Your RSVP has been recorded 💖");
@@ -231,29 +188,24 @@
       }
 
       function closeRSVP() {
-        document.getElementById("step1").style.display = "block";
-        document.getElementById("step2").style.display = "none";
-        document.getElementById("guestList").innerHTML = "";
-
-        document.querySelectorAll("input[name='guestNumber']").forEach(r => r.checked = false);
-
+        step1.style.display = "block";
+        step2.style.display = "none";
+        guestList.innerHTML = "";
         document.getElementById("id01").style.display = "none";
+        document.querySelectorAll("input[name='guestNumber']").forEach(r => r.checked = false);
       }
 
-      document.addEventListener("DOMContentLoaded", () => {
-        const els = document.querySelectorAll(".animated-img");
+      /* Fade-in animation */
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add("animate");
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.3 });
 
-        const observer = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("animate");
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.4 });
-
-        els.forEach(el => observer.observe(el));
-      });
+      document.querySelectorAll(".animated-img").forEach(img => observer.observe(img));
     </script>
 
   </body>
