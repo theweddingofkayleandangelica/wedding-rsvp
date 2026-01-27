@@ -20,7 +20,6 @@
       body {
         margin: 0;
         padding: 0;
-
       }
 
       body {
@@ -35,21 +34,24 @@
        IMAGE NORMALIZATION
     ========================= */
       .image-section {
-        max-width: 1100px;
+        max-width: 600px;
+        /* smaller width on desktop */
         margin: 0 auto;
-        /* padding: 20px 16px; */
-        padding: 0px 16px;
-
+        padding: 0 16px;
       }
 
       .image-section img {
         width: 100%;
+        /* fills container */
         height: auto;
+        /* keeps aspect ratio */
         display: block;
         border-radius: 14px;
         opacity: 0;
         transform: scale(0.97);
         transition: opacity 1s ease, transform 1s ease;
+        max-width: 100%;
+        /* never exceed container */
       }
 
       .image-section img.animate {
@@ -64,19 +66,29 @@
         h1 {
           font-size: 2rem;
         }
-      }
 
-      /* FULL WIDTH ON MOBILE ONLY */
-      @media (max-width: 600px) {
         .image-section {
           padding-left: 0;
           padding-right: 0;
           padding-top: 0;
           margin-top: 0;
+          max-width: 100%;
+          /* full width for mobile */
         }
 
         .image-section img {
           border-radius: 0;
+        }
+      }
+
+      /* =========================
+       VERY LARGE SCREENS
+       Optional further reduction
+    ========================= */
+      @media (min-width: 1400px) {
+        .image-section {
+          max-width: 550px;
+          /* even smaller on ultra-wide screens */
         }
       }
 
@@ -131,7 +143,6 @@
 
           <div id="step2" style="display:none">
             <div id="guestList"></div>
-            <!-- <small>Enter full name/s</small> -->
 
             <div class="w3-row w3-margin-top">
               <div class="w3-half">
@@ -150,7 +161,8 @@
     <footer class="w3-center w3-black w3-padding-16"></footer>
 
     <script>
-      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_g5AnwRj_V3DqAta3CNfaRs2GrD_0Km9h9QHTB9_lc4iTObJG8UPvPUFi5PPiwSb0MA/exec";
+      const SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbx_g5AnwRj_V3DqAta3CNfaRs2GrD_0Km9h9QHTB9_lc4iTObJG8UPvPUFi5PPiwSb0MA/exec";
 
       function chooseGuestNumber() {
         const selected = document.querySelector('input[name="guestNumber"]:checked');
@@ -164,8 +176,6 @@
           const input = document.createElement("input");
           input.className = "w3-input w3-border w3-margin-bottom guest-name";
           input.placeholder = i === 1 ? "Please input your full name" : `Enter your companion’s full name`;
-          // input.placeholder = i === 1 ? "Please input your full name" : `Guest ${i} name`;
-
           container.appendChild(input);
         }
 
