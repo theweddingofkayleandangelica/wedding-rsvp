@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Wedding RSVP</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+    <style>
+      body,
+      h1,
+      h2 {
+        font-family: "Raleway", sans-serif;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      p {
+        line-height: 2;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      .bgimg {
+        min-height: 100%;
+        background-image: url("wedding_couple.jpg");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        animation: bgZoom 8s ease forwards;
+      }
+
+      @keyframes bgZoom {
+        0% {
+          transform: scale(1);
+        }
+
+        50% {
+          transform: scale(1.02);
+        }
+
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .animated-img {
+        opacity: 0;
+        transform: scale(0.95);
+        transition: opacity 1s ease, transform 1s ease;
+      }
+
+      .animated-img.animate {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      @media screen and (max-width: 600px) {
+        h1 {
+          font-size: 2rem;
+        }
+      }
+
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Header -->
+    <header class="w3-display-container w3-wide bgimg" id="home"></header>
+
+    <!-- About -->
+    <div class="w3-container w3-pale-red" id="us" style="padding-top:20px;">
+      <div class="w3-content">
+        <img class="w3-round animated-img" src="together.jpg">
+      </div>
+    </div>
+
+    <!-- Sponsors -->
+    <!-- <div class="w3-container w3-pale-red w3-center" id="sponsors">
+      <div class="w3-content">
+        <img class="w3-round-large animated-img" src="sponsors.jpg">
+      </div>
+    </div> -->
+
+    <!-- Wedding Details -->
+    <div class="w3-container w3-pale-red w3-center" id="wedding">
+      <div class="w3-content">
+        <img class="w3-round-large animated-img" src="details.jpg">
+      </div>
+    </div>
+
+    <!-- RSVP Section -->
+    <div class="w3-container w3-padding-64 w3-pale-red w3-center w3-wide" id="rsvp">
+      <h1>It would mean the world to have you there.</h1>
+      <p class="w3-large">Kindly Respond By February 28</p>
+      <p class="w3-xlarge">
+        <button onclick="document.getElementById('id01').style.display='block'"
+                class="w3-button w3-round w3-red w3-opacity w3-hover-opacity-off" style="padding:8px 60px">
+          RSVP
+        </button>
+      </p>
+    </div>
+
+    <!-- RSVP Modal -->
+    <div id="id01" class="w3-modal" onclick="if(event.target === this) closeRSVP()">
+
+      <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="padding:32px;max-width:600px">
+
+        <div class="w3-container w3-white w3-center">
+
+          <!-- Close Button -->
+          <span onclick="closeRSVP()" class="w3-button w3-display-topright w3-large">&times;</span>
+
+          <h1 class="w3-wide">CAN YOU COME?</h1>
+          <p>We really hope you can make it.</p>
+
+          <!-- Step 1 -->
+          <div id="step1">
+            <p style="margin-top:15px;font-weight:bold">
+              How many people will attend? (Including yourself)
+            </p>
+
+            <div>
+              <label><input type="radio" name="guestNumber" value="1"> 1</label>
+              <label><input type="radio" name="guestNumber" value="2"> 2</label>
+              <label><input type="radio" name="guestNumber" value="3"> 3</label>
+            </div>
+
+            <p style="margin-top:15px">
+              <button class="w3-button w3-green w3-round" onclick="chooseGuestNumber()">Next</button>
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div id="step2" style="display:none">
+            <div id="guestList"></div>
+            <small>Enter full names for each guest (max 3)</small>
+
+            <div class="w3-row" style="margin-top:15px">
+              <div class="w3-half">
+                <button class="w3-button w3-block w3-green" onclick="sendRSVP('Going')">Going</button>
+              </div>
+              <div class="w3-half">
+                <button class="w3-button w3-block w3-red" onclick="sendRSVP('Not Going')">Can't come</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w3-center w3-black w3-padding-16"></footer>
+
+    <script>
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_g5AnwRj_V3DqAta3CNfaRs2GrD_0Km9h9QHTB9_lc4iTObJG8UPvPUFi5PPiwSb0MA/exec";
+      let guestCount = 1;
+
+      function chooseGuestNumber() {
+        const radios = document.getElementsByName("guestNumber");
+        let selected = 0;
+
+        for (let r of radios) {
+          if (r.checked) selected = parseInt(r.value);
+        }
+
+        if (!selected) {
+          alert("Please select number of guests.");
+          return;
+        }
+
+        guestCount = selected;
+        generateGuestFields(selected);
+
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "block";
+      }
+
+      function generateGuestFields(count) {
+        const container = document.getElementById("guestList");
+        container.innerHTML = "";
+
+        for (let i = 1; i <= count; i++) {
+          const input = document.createElement("input");
+          input.type = "text";
+          input.className = "w3-input w3-border w3-margin-bottom guest-name";
+          input.placeholder = i === 1 ? "Your name" : `Guest ${i} name`;
+          container.appendChild(input);
+        }
+      }
+
+      function sendRSVP(status) {
+        const inputs = document.querySelectorAll(".guest-name");
+        const names = [];
+
+        inputs.forEach(i => {
+          if (i.value.trim()) names.push(i.value.trim());
+        });
+
+        if (names.length === 0) {
+          alert("Please enter at least one name.");
+          return;
+        }
+
+        fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: names.join(", "),
+            status: status,
+            guests: names.length
+          })
+        });
+
+        alert("Thank you! Your RSVP has been recorded 💖");
+        closeRSVP();
+      }
+
+      function closeRSVP() {
+        document.getElementById("step1").style.display = "block";
+        document.getElementById("step2").style.display = "none";
+        document.getElementById("guestList").innerHTML = "";
+
+        document.querySelectorAll("input[name='guestNumber']").forEach(r => r.checked = false);
+
+        document.getElementById("id01").style.display = "none";
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const els = document.querySelectorAll(".animated-img");
+
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("animate");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.4 });
+
+        els.forEach(el => observer.observe(el));
+      });
+    </script>
+
+  </body>
+
+</html>
